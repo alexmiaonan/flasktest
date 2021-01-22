@@ -1,20 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>首页</title>
-    <link rel="stylesheet" href="{{ url_for('static',filename='css/index.css') }}">
-</head>
-<body>
-        <img src="{{ url_for('static',filename='img/1.jpg') }}" alt="">
-        {% if name %}
-        <h1>欢迎来到召唤师峡谷{{ sex }}{{ name }}</h1>
-        <h1>{{ name }}你的光辉时刻是什么时候？是WCG吗？而我的光辉时刻就是开大招的时候！</h1>
-        {% endif %}
-        <h2>敌军还有30秒到达战场！碾碎他们！</h2>
-        <h2>全军出击！</h2>
-        <script src="{{ url_for('static',filename='js/index.js') }}">
+{% extends "base.html" %}
 
-        </script>
-</body>
-</html>
+{% block title %}
+主页
+{% endblock  %}
+
+{% block lib %}
+<link rel="stylesheet" href="{{ url_for('static',filename='css/index.css') }}">
+{% endblock  %}
+
+{% block main %}
+<nav class="navbar navbar-default">
+    <div class="container">
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                {% for a in article %}
+                <li class="active"><a href="/{{ a.id }}">{{ a.title }}</a></li>
+                {% endfor %}
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+{% endblock  %}
