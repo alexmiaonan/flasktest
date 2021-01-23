@@ -45,10 +45,10 @@
             <ul class="nav navbar-nav navbar-right">
                 {% if "user" in session %}
                 <li><a href="#">{{ session["user"] }}</a></li>
-                <li><a href="{{ url_for('logout') }}">退出</a></li>
+                <li><a href="{{ url_for('user.logout') }}">退出</a></li>
                 {% else %}
-                <li><a href="{{ url_for('regist') }}">注册</a></li>
-                <li><a href="{{ url_for('login') }}">登录</a></li>
+                <li><a href="{{ url_for('user.regist') }}">注册</a></li>
+                <li><a href="{{ url_for('user.login') }}">登录</a></li>
                 {% endif %}
             </ul>
         </div><!-- /.navbar-collapse -->
