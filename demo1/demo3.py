@@ -5,10 +5,10 @@ u_date:2021/1/22 10:21
 reversion:1.0
 file_name:demo3
 """
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 
 app = Flask(__name__)
-
+app.secret_key="wi=djuafiefne9q1efwj2efw3e2er24fsfw"
 book = {
 	"name": "gcm",
 	"author": "mm",
@@ -32,21 +32,16 @@ users = [{
 	"email": "gao@qq.com",
 	"password": "1",
 }]
-currentuser = None
 
 
 @app.route("/")
 def index():
-	global currentuser
-	user = currentuser
 	article = book["articles"]
 	return render_template("index.html", **locals())
 
 
 @app.route("/<int:pk>")
 def detail(pk):
-	global currentuser
-	user = currentuser
 	article = None
 	for a in book["articles"]:
 		if a["id"] == pk:
@@ -56,7 +51,6 @@ def detail(pk):
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
-	global currentuser
 	if request.method == "GET":
 		return render_template("login.html", **locals())
 	elif request.method == "POST":
@@ -65,16 +59,14 @@ def login():
 		password = request.form.get("password")
 		for u in users:
 			if u["email"] == email and u["password"] == password:
-				currentuser = u
+				session["user"]=email
 				return redirect(url_for("index"))
 		return redirect(url_for("login"))
 
 
 @app.route("/logout")
 def logout():
-	global currentuser
-	currentuser = None
-	user = currentuser
+	session.pop("user")
 	return redirect(url_for("index"))
 
 
@@ -86,7 +78,6 @@ def regist():
 		email = request.form.get("email")
 		password = request.form.get("password")
 		password2 = request.form.get("password2")
-		global users
 		users.append({
 			"name":email,
 			"email": email,

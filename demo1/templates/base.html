@@ -43,8 +43,8 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                {% if user %}
-                <li><a href="#">{{ user["name"] }}</a></li>
+                {% if "user" in session %}
+                <li><a href="#">{{ session["user"] }}</a></li>
                 <li><a href="{{ url_for('logout') }}">退出</a></li>
                 {% else %}
                 <li><a href="{{ url_for('regist') }}">注册</a></li>
